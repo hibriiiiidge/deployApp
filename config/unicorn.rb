@@ -16,7 +16,7 @@ worker_processes 3
 #pid "#{RAILS_ROOT}/tmp/unicorn.pid"
 
 listen "/tmp/unicorn.sock"
-pid "#{RAILS_ROOT}tmp/pids/unicorn.pid"
+pid "tmp/pids/unicorn.pid"
 
 preload_app true
 
