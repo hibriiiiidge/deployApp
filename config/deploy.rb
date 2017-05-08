@@ -41,10 +41,11 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', '
 # Default value for keep_releases is 5
 set :keep_releases, 3
 
-set :unicorn_pid, "#{shared_path}/tmp/unicorn.pid"
+set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
+
+set :unicorn_config_path, -> { File.join(current_path, "config", "unicorn.rb") }
 
 namespace :deploy do
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -54,6 +55,13 @@ namespace :deploy do
     end
   end
 
+end
+
+after 'deploy:publishing', 'deploy:restart'
+namespace :deploy do
+  task :restart do
+    invoke 'unicorn:restart'
+  end
 end
 
 # Default branch is :master
