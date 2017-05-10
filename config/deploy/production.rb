@@ -1,6 +1,6 @@
 set :branch, 'master'
 
-server '52.192.38.248', user: 'ec2-user', roles: %w{app db web}
+server '52.192.38.248', user: 'ec2-user', roles: %w{app db web}  
 
 set :ssh_options, {
     keys: %w(~/.ssh/test.pem),
